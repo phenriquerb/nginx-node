@@ -18,10 +18,13 @@ const query = util.promisify(connection.query).bind(connection);
 
 app.get('/', (req, res) => {
 	(async () => {
-	    const rows = await query('select * from people order by id desc limit 1');
+	    const rows = await query('select * from people order by id desc');
 	    console.log(rows);
-  		res.send('<h1>Full Cycle</h1>' + rows[0].id + ' - ' + rows[0].name);
-	  
+	    h = '<h1>Full Cycle Rocks!</h1>';
+	    rows.forEach(function(row, i) {
+    		h = h + row.id + ' - ' + row.name + '</br>';
+		})
+		res.send(h);
 	})()
 })
 
